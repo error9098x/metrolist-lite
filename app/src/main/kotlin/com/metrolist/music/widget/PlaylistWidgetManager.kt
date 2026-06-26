@@ -621,6 +621,7 @@ class PlaylistWidgetManager @Inject constructor(
     private fun getOpenTargetIntent(item: QuickPick): PendingIntent {
         val intent = Intent(context, MainActivity::class.java).apply {
             action = MainActivity.ACTION_OPEN_WIDGET_TARGET
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
             putExtra(MainActivity.EXTRA_WIDGET_TARGET_TYPE, item.targetType)
             putExtra(MainActivity.EXTRA_WIDGET_TARGET_ID, item.targetId)
         }
