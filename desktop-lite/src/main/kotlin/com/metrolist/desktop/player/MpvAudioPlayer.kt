@@ -145,6 +145,7 @@ class MpvAudioPlayer : AudioPlayer {
     }
 
     private fun resolveMpvPath(): String? {
+        BundledBinaries.path("mpv")?.let { return it } // bundled in the packaged .app
         System.getenv("METROLIST_MPV")?.let { if (File(it).canExecute()) return it }
         runCatching {
             val which = ProcessBuilder("/bin/sh", "-c", "command -v mpv").start()

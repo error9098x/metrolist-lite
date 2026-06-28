@@ -16,6 +16,7 @@ object YtDlp {
     fun isAvailable(): Boolean = path != null
 
     private fun resolve(): String? {
+        BundledBinaries.path("yt-dlp")?.let { return it } // bundled in the packaged .app
         System.getenv("METROLIST_YTDLP")?.let { if (File(it).canExecute()) return it }
 
         runCatching {

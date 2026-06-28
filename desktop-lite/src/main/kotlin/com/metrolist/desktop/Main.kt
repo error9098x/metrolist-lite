@@ -24,6 +24,9 @@ fun main() {
     System.setProperty("apple.awt.application.appearance", "system")
     runCatching { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()) }
 
+    // Make bundled mpv/yt-dlp runnable (clear quarantine, set +x) when packaged.
+    com.metrolist.desktop.player.BundledBinaries.ensure()
+
     // macOS Dock icon.
     runCatching {
         if (java.awt.Taskbar.isTaskbarSupported()) {

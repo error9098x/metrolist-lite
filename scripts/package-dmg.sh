@@ -36,11 +36,15 @@ done
 ICNS="$WORK/app.icns"
 iconutil -c icns "$ICONSET" -o "$ICNS"
 
+echo "==> Bundling mpv + yt-dlp (self-contained, no Homebrew needed at runtime)"
+BIN_OUT="$ROOT/desktop-lite/build/bundle/bin"
+scripts/bundle-deps.sh "$BIN_OUT"
+
 OUT="build/dist"
 mkdir -p "$OUT"
 rm -f "$OUT"/*.dmg
 
-echo "==> jpackage (this bundles a Java runtime; takes a minute)"
+echo "==> jpackage (bundles a Java runtime + mpv + yt-dlp; takes a couple minutes)"
 jpackage \
   --type dmg \
   --name "$APP_NAME" \
@@ -50,6 +54,7 @@ jpackage \
   --main-class "$MAIN_CLASS" \
   --icon "$ICNS" \
   --mac-package-name "$APP_NAME" \
+  --app-content "$BIN_OUT" \
   --java-options "-Djava.awt.headless=false" \
   --java-options "-Dapple.awt.application.appearance=system" \
   --java-options "-Dapple.laf.useScreenMenuBar=true" \

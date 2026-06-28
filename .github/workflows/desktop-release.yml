@@ -23,6 +23,9 @@ jobs:
           distribution: temurin
           java-version: '21'
 
+      - name: Install bundling tools (mpv source + dylibbundler)
+        run: brew install mpv dylibbundler
+
       - name: Resolve version
         id: ver
         run: |

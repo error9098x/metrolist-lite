@@ -47,19 +47,21 @@ cross‑platform‑friendly desktop app that **reuses Metrolist's pure‑Kotlin 
 - 🖼️ **Now Playing** with album‑art gradient background and a distraction‑free
   fullscreen "Zen" mode
 
-## Requirements
+## Install
 
-- macOS (Apple Silicon or Intel)
-- JDK 21+ (the build targets Java 21 bytecode)
-- [`mpv`](https://mpv.io) and [`yt-dlp`](https://github.com/yt-dlp/yt-dlp):
+**Easiest — download the `.dmg`** from [Releases](../../releases). It's **fully
+self‑contained**: the app bundles its own Java runtime **plus `mpv` and `yt-dlp`**, so there's
+nothing else to install. The app is unsigned, so on first launch use **right‑click → Open** to get
+past Gatekeeper.
 
-  ```bash
-  brew install mpv yt-dlp
-  ```
+> Apple Silicon (arm64). Intel Macs aren't built yet.
 
-## Run
+## Run from source
+
+For development you'll need JDK 21+ and `mpv` + `yt-dlp` on PATH:
 
 ```bash
+brew install mpv yt-dlp
 ./gradlew :desktop-lite:run
 ```
 
@@ -107,15 +109,16 @@ Tagged releases publish a self‑contained macOS `.dmg` (built with `jpackage` o
 macOS CI runner) under [Releases](../../releases). Push a tag like `v1.0.0` to trigger
 the **Desktop Release (DMG)** workflow, or run it manually from the Actions tab.
 
-Build a DMG locally:
+Build a DMG locally (needs `mpv` + `dylibbundler` installed so they can be vendored):
 
 ```bash
-scripts/package-dmg.sh 1.0.0   # -> build/dist/Metrolist Lite-1.0.0.dmg
+brew install mpv dylibbundler
+scripts/package-dmg.sh 1.1.0   # -> "build/dist/Metrolist Lite-1.1.0.dmg"
 ```
 
-The bundle ships its own Java runtime, so end users only need `mpv` and `yt-dlp`
-(`brew install mpv yt-dlp`). DMGs are unsigned for now — first launch may need
-right‑click → Open (Gatekeeper).
+The DMG bundles a Java runtime **and** `mpv` (with its dylibs) **and** `yt-dlp`, so users need
+nothing else installed. On first run the app clears the Gatekeeper quarantine on its bundled
+binaries automatically; the `.app` itself is unsigned, so right‑click → Open the first time.
 
 ## License
 
