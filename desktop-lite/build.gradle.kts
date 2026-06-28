@@ -17,6 +17,9 @@ plugins {
     application
 }
 
+group = "com.metrolist.desktop"
+version = (findProperty("version") as? String)?.takeIf { it != "unspecified" } ?: "1.0.0"
+
 // Compile innertube's pure-Kotlin source in-place. No churn to the Android module.
 sourceSets {
     named("main") {

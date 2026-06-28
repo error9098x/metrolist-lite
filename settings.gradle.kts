@@ -25,18 +25,14 @@ dependencyResolutionManagement {
 // }
 
 rootProject.name = "Metrolist"
-include(":app")
-// macOS personal-use MVP. Pure Kotlin/JVM Swing app that reuses innertube source.
-// Does not depend on the Android :innertube project; see desktop-lite/build.gradle.kts.
-include(":desktop-lite")
-include(":innertube")
-include(":kugou")
-include(":lrclib")
 
-include(":lastfm")
-include(":betterlyrics")
-include(":shazamkit")
-include(":paxsenix")
+// Metrolist Lite (macOS desktop) builds ONLY the desktop module. It reuses the
+// innertube / lrclib / betterlyrics *source* directly (see desktop-lite/build.gradle.kts),
+// so the Android library modules and the Android :app are intentionally NOT included here.
+// This keeps the build Android-SDK-free (important for CI). Those sources stay in the tree
+// for reference and upstream sync; to build the original Android app, restore the includes:
+//   include(":app", ":innertube", ":kugou", ":lrclib", ":lastfm", ":betterlyrics", ":shazamkit", ":paxsenix")
+include(":desktop-lite")
 
 // Use a local copy of NewPipe Extractor by uncommenting the lines below.
 // We assume, that Metrolist and NewPipe Extractor have the same parent directory.
