@@ -26,6 +26,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "Metrolist"
 include(":app")
+// macOS personal-use MVP. Pure Kotlin/JVM Swing app that reuses innertube source.
+// Does not depend on the Android :innertube project; see desktop-lite/build.gradle.kts.
+include(":desktop-lite")
 include(":innertube")
 include(":kugou")
 include(":lrclib")
